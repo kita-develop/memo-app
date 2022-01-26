@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { string } from 'prop-types';
 
 export default function Button(props) {
+  // eslint-disable-next-line react/prop-types
   const { label } = props;
   return (
     <View style={styles.buttonContainer}>
@@ -30,4 +31,3 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
 });
-
