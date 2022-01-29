@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
-  shape, string, instanceOf, arrayOf
+  shape, string, instanceOf, arrayOf,
 } from 'prop-types';
 import Icon from './Icon';
 import { dateToString } from '../utils';
