@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Alert, Text } from 'react-native';
+import {
+  View, StyleSheet, Alert, Text,
+} from 'react-native';
 import firebase from 'firebase';
 
 import CircleButton from '../components/CircleButton';
@@ -7,6 +9,7 @@ import LogOutButton from '../components/LogOutButton';
 import MemoList from '../components/MemoList';
 import Button from '../components/Button';
 import Loading from '../components/Loading';
+import { translateErrors } from '../utils';
 
 export default function MemoListScreen(props) {
   const { navigation } = props;
@@ -20,7 +23,7 @@ export default function MemoListScreen(props) {
 
   useEffect(() => {
     const { currentUser } = firebase.auth();
-    let unsubscribe = () => {};
+    let unsubscribe = () => { };
     if (currentUser) {
       setIsLoading(true);
       const db = firebase.firestore();
@@ -28,7 +31,7 @@ export default function MemoListScreen(props) {
       unsubscribe = ref.onSnapshot((snapshot) => {
         const userMemos = [];
         snapshot.forEach((doc) => {
-          console.log(doc.id, doc.data());
+          // console.log(doc.id, doc.data());
           const data = doc.data();
           userMemos.push({
             id: doc.id,
@@ -40,8 +43,9 @@ export default function MemoListScreen(props) {
         setIsLoading(false);
       }, (error) => {
         setIsLoading(false);
-        console.log(error);
-        Alert.alert('データの読み込みに失敗しました。');
+        // console.log(error);
+        const errMsg = translateErrors(error.code);
+        Alert.alert(errMsg.title, errMsg.description);
       });
     }
     return unsubscribe;

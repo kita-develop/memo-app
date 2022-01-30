@@ -12,11 +12,11 @@ export default function SignUpScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handlePress() {
+  const handlePress = () => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        console.log(`log ==>${user.uid}`);
+      .then((/* userCredential */) => {
+        // const { user } = userCredential;
+        // console.log(`log ==>${user.uid}`);
         navigation.reset({
           index: 0,
           routes: [{ name: 'MemoList' }],
@@ -24,10 +24,10 @@ export default function SignUpScreen(props) {
       })
       .catch((error) => {
         const errMsg = translateErrors(error.code);
-        console.log(`error:${error.code} msg=${error.message}}`);
+        // console.log(`error:${error.code} msg=${error.message}}`);
         Alert.alert(errMsg.title, errMsg.description);
       });
-  }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.inner}>

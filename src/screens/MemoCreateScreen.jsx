@@ -9,7 +9,7 @@ import CircleButton from '../components/CircleButton';
 export default function MemoCreateScreen(props) {
   const { navigation } = props;
   const [bodyText, setBodyText] = useState('');
-  function handlePress() {
+  const handlePress = () => {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     const ref = db.collection(`users/${currentUser.uid}/memos`);
@@ -24,7 +24,7 @@ export default function MemoCreateScreen(props) {
       .catch((error) => {
         console.log('Error!', error);
       });
-  }
+  };
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.inputContainer}>

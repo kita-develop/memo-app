@@ -38,25 +38,23 @@ export default function MemoList(props) {
     }
   }
 
-  function renderItem({ item }) {
-    return (
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      style={styles.memoListItem}
+      onPress={() => { navigation.navigate('MemoDetail', { id: item.id }); }}
+    >
+      <View>
+        <Text style={styles.memoListItemTile} numberOfLines={1}>{item.bodyText}</Text>
+        <Text style={styles.memoListItemDate}>{dateToString(item.updateAt)}</Text>
+      </View>
       <TouchableOpacity
-        style={styles.memoListItem}
-        onPress={() => { navigation.navigate('MemoDetail', { id: item.id }); }}
+        onPress={() => { deleteMemo(item.id); }}
+        style={styles.memoDelete}
       >
-        <View>
-          <Text style={styles.memoListItemTile} numberOfLines={1}>{item.bodyText}</Text>
-          <Text style={styles.memoListItemDate}>{dateToString(item.updateAt)}</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => { deleteMemo(item.id); }}
-          style={styles.memoDelete}
-        >
-          <Icon name="delete" size={24} color="#B0B0B0" />
-        </TouchableOpacity>
+        <Icon name="delete" size={24} color="#B0B0B0" />
       </TouchableOpacity>
-    );
-  }
+    </TouchableOpacity>
+  );
   return (
     <View style={styles.container}>
       <FlatList

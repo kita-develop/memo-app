@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View, TextInput, StyleSheet, KeyboardAvoidingView, Alert,
 } from 'react-native';
@@ -12,7 +12,7 @@ export default function MemoEditScreen(props) {
   const { navigation, route } = props;
   const { id, bodyText } = route.params;
   const [memo, setMemo] = useState(bodyText);
-  function handlePress() {
+  const handlePress = () => {
     const { currentUser } = firebase.auth();
     if (currentUser) {
       const db = firebase.firestore();
@@ -30,7 +30,7 @@ export default function MemoEditScreen(props) {
           Alert.alert(errMsg.title, errMsg.description);
         });
     }
-  }
+  };
 
   return (
     // <KeyboardAvoidingView style={styles.container} behavior="height" keyboardVerticalOffset="60">

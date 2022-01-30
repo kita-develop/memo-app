@@ -12,7 +12,7 @@ export default function LogInScreen(props) {
   const { navigation } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState('true');
+  const [isLoading, setIsLoading] = useState(true);
   // useEffect(() => {
   //   console.log('1 Login useEffect start!');
   //   return () => {
@@ -36,26 +36,26 @@ export default function LogInScreen(props) {
     return unsubscribe;
   }, []);
 
-  function handlePress() {
+  const handlePress = () => {
     setIsLoading(true);
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        console.log(`userId:${user.uid}`);
+      .then((/* userCredential */) => {
+        // const { user } = userCredential;
+        // console.log(`userId:${user.uid}`);
         navigation.reset({
           index: 0,
           routes: [{ name: 'MemoList' }],
         });
       })
       .catch((error) => {
-        console.log('login error');
+        // console.log('login error');
         const errMsg = translateErrors(error.code);
         Alert.alert(errMsg.title, errMsg.description);
       })
       .then(() => {
         setIsLoading(false);
       });
-  }
+  };
   return (
     <View style={styles.container}>
       <Loading isLoading={isLoading} />
