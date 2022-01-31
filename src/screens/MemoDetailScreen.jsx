@@ -7,7 +7,7 @@ import firebase from 'firebase';
 
 import { shape, string } from 'prop-types';
 import CircleButton from '../components/CircleButton';
-import { dateToString } from '../utils';
+import { dateToString, translateErrors } from '../utils';
 
 export default function MemoDetailScreen(props) {
   const { navigation, route } = props;
@@ -15,7 +15,7 @@ export default function MemoDetailScreen(props) {
   const [memo, setMemo] = useState(null);
   useEffect(() => {
     const { currentUser } = firebase.auth();
-    let unsubscribe = () => {};
+    let unsubscribe = () => { };
     if (currentUser) {
       const db = firebase.firestore();
       const ref = db.collection(`users/${currentUser.uid}/memos`).doc(id);
@@ -27,8 +27,9 @@ export default function MemoDetailScreen(props) {
           updateAt: data.updateAt.toDate(),
         });
       }, (error) => {
-        console.log(error);
-        Alert.alert('データの読み込みに失敗しました。');
+        // console.log(error);
+        const errMsg = translateErrors(error.code);
+        Alert.alert(errMsg.title, errMsg.description);
       });
     }
     return unsubscribe;
