@@ -23,7 +23,7 @@
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.with-ai-lab",
+      "package": "com.with_ai_lab.MemoApp",
       "versionCode": 1,
       "permissions": [],
       "adaptiveIcon": {
